@@ -12,12 +12,12 @@ Plugin 'gmarik/Vundle.vim'
 " languages
 Plugin 'fatih/vim-go'
 Plugin 'jimenezrick/vimerl'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'mattreduce/vim-mix'
 Plugin 'pangloss/vim-javascript'
 Plugin 'helino/vim-json'
 Plugin 'mxw/vim-jsx'
 Plugin 'udalov/kotlin-vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'mattreduce/vim-mix'
 Plugin 'lambdatoast/elm.vim'
 " shortcuts
 Plugin 'tpope/vim-surround'
@@ -32,7 +32,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 " look and feel
 Plugin 'bling/vim-airline'
 Plugin 'endel/vim-github-colorscheme'
-Plugin 'tomasr/molokai'
+Plugin 'artnez/vim-wipeout'
+Plugin 'fatih/molokai'
 Plugin 'xero/sourcerer.vim'
 " session management
 Plugin 'tpope/vim-obsession'
@@ -53,9 +54,11 @@ set history=700
 set background=dark
 set t_Co=256
 colorscheme molokai
+let g:rehash256 = 1
 hi StatusLine ctermfg=6 ctermbg=7
 hi Comment ctermfg=green
 hi Visual cterm=reverse
+hi MatchParen ctermbg=none ctermfg=red
 
 " Metdata
 set backupdir=~/.vim/backup/
@@ -116,3 +119,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" YCM config
+let g:ycm_python_binary_path = '/usr/bin/python'
