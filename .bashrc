@@ -19,7 +19,6 @@ export PATH=$PATH:~/npm/bin
 # Go
 export GOPATH=~/go
 export PATH=$PATH:~/go/bin
-export GO15VENDOREXPERIMENT=1
 
 # Ruby
 export PATH=$PATH:~/.gem/ruby/2.3.0/bin
