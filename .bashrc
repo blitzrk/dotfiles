@@ -8,7 +8,8 @@
 # Change defaults
 export EDITOR="vim"
 export BROWSER="google-chrome-stable"
-export PS1="[\[\033[0;92m\]\u@$HOSTNAME\[\033[0;94m\] \W\[\033[00m\]] \$ "
+export PS1="[\[\033[0;37m\]\u@$HOSTNAME\[\033[0;95m\] \W\[\033[00m\]] \$ "
+export LS_COLORS='di=96:fi=37:ln=31;47:pi=95:so=95:bd=95:cd=5:or=31:mi=0:ex=92'
 
 # Node.js
 export NVM_DIR="/home/ben/.nvm"
