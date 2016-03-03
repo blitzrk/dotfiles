@@ -124,4 +124,4 @@ let g:syntastic_check_on_wq = 0
 let g:ycm_python_binary_path = '/usr/bin/python'
 
 " Ctrlp config
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|/deps/\|_build'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git\|/deps/\|_build\|vendor'
