@@ -408,13 +408,15 @@ globalkeys = awful.util.table.join(
 		awful.util.spawn("sudo keyboard-brightness -i")
 	end),
 	awful.key({ modkey }, "F8", function()
-		awful.util.spawn("volume tog")
+		awful.util.spawn("pactl set-sink-mute 1 toggle")
 	end),
 	awful.key({ modkey }, "F9", function()
-		awful.util.spawn("volume down")
+		awful.util.spawn("pactl set-sink-mute 1 0")
+		awful.util.spawn("pactl set-sink-volume 1 -2%")
 	end),
 	awful.key({ modkey }, "F10", function()
-		awful.util.spawn("volume up")
+		awful.util.spawn("pactl set-sink-mute 1 0")
+		awful.util.spawn("pactl set-sink-volume 1 +2%")
 	end),
 
 
