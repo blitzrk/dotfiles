@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ "$1" == "tog" ]; then
+	if amixer -c 0 get Master | grep -q off
+	then
+		amixer set Master unmute
+		amixer set PCM unmute
+	else
+		amixer set Master mute
+	fi
+elif [ "$1" == "up" ]; then
+	amixer set Master 2%+
+elif [ "$1" == "down" ]; then
+	amixer set Master 2%-
+else
+	>&2 echo "Unknown command $1"
+fi

@@ -10,6 +10,7 @@ export EDITOR="vim"
 export BROWSER="google-chrome-stable"
 export PS1="[\[\033[0;37m\]\u@$HOSTNAME\[\033[0;95m\] \W\[\033[00m\]] \$ "
 export LS_COLORS='di=96:fi=37:ln=31;47:pi=95:so=95:bd=95:cd=5:or=31:mi=0:ex=92'
+export PATH=$HOME/.local/bin:$PATH
 
 # Node.js
 export NVM_DIR="/home/ben/.nvm"
@@ -18,8 +19,8 @@ export PATH=$PATH:~/npm/bin
 #source /usr/share/nvm/init-nvm.sh
 
 # Go
-export GOPATH=~/go
-export PATH=$PATH:~/go/bin
+export GOPATH=~/.go
+export PATH=$PATH:~/.go/bin
 
 # Ruby
 export PATH=$PATH:~/.gem/ruby/2.3.0/bin
@@ -27,18 +28,7 @@ export PATH=$PATH:~/.gem/ruby/2.3.0/bin
 # Aliases
 alias ls='ls --color=auto'
 alias ssh='ssh -o ServerAliveInterval=100'
-alias hugoserver="hugo server --bind=0.0.0.0 -b 192.168.1.3"
-alias startxc="xinit >/dev/null 2>&1 &"
-alias stopxc="pkill X"
-
-function unmount_chroot() {
-	sudo kill -9 `ps aux | egrep '^dbus' | awk '{print $2}'`
-   	tmux kill-server
-	exit
-}
-alias unmount_chroot="unmount_chroot >/dev/null 2>&1"
 
 # Start SSH Agent
 #eval $(ssh-agent)
 #alias ssh-add='ssh-add -t 1h'
-
