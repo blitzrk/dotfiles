@@ -180,7 +180,8 @@ memwidget = lain.widgets.mem({
 cpuicon = wibox.widget.imagebox(beautiful.widget_cpu)
 cpuwidget = lain.widgets.cpu({
     settings = function()
-        widget:set_text(" " .. cpu_now.usage .. "% ")
+		usage = string.format(" %02d%% ", tonumber(cpu_now.usage))
+        widget:set_text(usage)
     end
 })
 
@@ -243,9 +244,11 @@ neticon = wibox.widget.imagebox(beautiful.widget_net)
 neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(iptraf) end)))
 netwidget = lain.widgets.net({
     settings = function()
-        widget:set_markup(markup("#7AC82E", " " .. net_now.received)
+		recv = string.format(" %07.1f", net_now.received)
+		sent = string.format(" %07.1f", net_now.sent)
+        widget:set_markup(markup("#7AC82E", recv)
                           .. " " ..
-                          markup("#46A8C3", " " .. net_now.sent .. " "))
+                          markup("#46A8C3", sent))
     end
 })
 
@@ -409,14 +412,17 @@ globalkeys = awful.util.table.join(
 	end),
 	awful.key({ modkey }, "F8", function()
 		awful.util.spawn("pactl set-sink-mute 1 toggle")
+        volumewidget.update()
 	end),
 	awful.key({ modkey }, "F9", function()
 		awful.util.spawn("pactl set-sink-mute 1 0")
 		awful.util.spawn("pactl set-sink-volume 1 -2%")
+        volumewidget.update()
 	end),
 	awful.key({ modkey }, "F10", function()
 		awful.util.spawn("pactl set-sink-mute 1 0")
 		awful.util.spawn("pactl set-sink-volume 1 +2%")
+        volumewidget.update()
 	end),
 
 
