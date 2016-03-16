@@ -123,7 +123,7 @@ mytextclock = lain.widgets.abase({
 })
 
 -- calendar
-lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
+lain.widgets.calendar:attach(mytextclock, { font_size = 18 })
 
 -- Mail IMAP check
 mailicon = wibox.widget.imagebox(beautiful.widget_mail)
@@ -180,7 +180,7 @@ memwidget = lain.widgets.mem({
 cpuicon = wibox.widget.imagebox(beautiful.widget_cpu)
 cpuwidget = lain.widgets.cpu({
     settings = function()
-		usage = string.format(" %02d%% ", tonumber(cpu_now.usage))
+		usage = string.format(" %3d%% ", tonumber(cpu_now.usage))
         widget:set_text(usage)
     end
 })
@@ -244,8 +244,8 @@ neticon = wibox.widget.imagebox(beautiful.widget_net)
 neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(iptraf) end)))
 netwidget = lain.widgets.net({
     settings = function()
-		recv = string.format(" %07.1f", net_now.received)
-		sent = string.format(" %07.1f", net_now.sent)
+		recv = string.format("%10.1f", net_now.received)
+		sent = string.format("%10.1f", net_now.sent)
         widget:set_markup(markup("#7AC82E", recv)
                           .. " " ..
                           markup("#46A8C3", sent))
@@ -327,7 +327,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 18 })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 28 })
 
     -- Widgets that are aligned to the upper left
     local left_layout = wibox.layout.fixed.horizontal()
