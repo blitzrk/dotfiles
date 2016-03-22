@@ -19,6 +19,7 @@ Plugin 'helino/vim-json'
 Plugin 'mxw/vim-jsx'
 Plugin 'udalov/kotlin-vim'
 Plugin 'lambdatoast/elm.vim'
+Plugin 'mjakl/vim-asciidoc'
 " shortcuts
 Plugin 'tpope/vim-surround'
 " syntax
