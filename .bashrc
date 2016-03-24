@@ -16,3 +16,6 @@ alias ssh='ssh -o ServerAliveInterval=100'
 alias shutdown='sudo systemctl poweroff'
 alias reboot='sudo systemctl reboot'
 alias wifi='nmcli r wifi'
+
+# SSH Agent
+eval $(keychain --eval --quiet id_rsa)
