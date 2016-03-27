@@ -19,3 +19,6 @@ alias wifi='nmcli r wifi'
 
 # SSH Agent
 eval $(keychain --eval --quiet id_rsa)
+
+# added by travis gem
+[ -f /home/ben/.travis/travis.sh ] && source /home/ben/.travis/travis.sh
