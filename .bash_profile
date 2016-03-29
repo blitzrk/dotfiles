@@ -7,7 +7,8 @@ export EDITOR="vim"
 export PATH=$HOME/.local/bin:$PATH
 
 # Node.js
-source /usr/share/nvm/init-nvm.sh
+export NVM_DIR="/home/ben/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Go
 export GOPATH=~/.go
