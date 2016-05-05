@@ -27,6 +27,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
+Plugin 'maksimr/vim-jsbeautify'
 " navigation
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
@@ -37,6 +38,7 @@ Plugin 'endel/vim-github-colorscheme'
 Plugin 'artnez/vim-wipeout'
 Plugin 'fatih/molokai'
 Plugin 'xero/sourcerer.vim'
+Plugin 'chriskempson/base16-vim'
 " session management
 Plugin 'tpope/vim-obsession'
 " git integration
@@ -72,6 +74,7 @@ set undolevels=1000
 " Indentation
 set tabstop=4
 set shiftwidth=4
+set textwidth=79
 set smarttab
 set noexpandtab
 
