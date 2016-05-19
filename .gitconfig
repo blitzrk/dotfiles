@@ -13,8 +13,11 @@
 	editor = vim
 [merge]
 	tool = vimdiff
+	conflictstyle = diff3
 [difftool]
 	prompt = false
 [alias]
 	df = diff
 	dt = difftool
+[mergetool]
+	prompt = false
