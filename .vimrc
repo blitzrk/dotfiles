@@ -34,11 +34,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 " look and feel
 Plugin 'bling/vim-airline'
-Plugin 'endel/vim-github-colorscheme'
 Plugin 'artnez/vim-wipeout'
 Plugin 'fatih/molokai'
 Plugin 'xero/sourcerer.vim'
-Plugin 'chriskempson/base16-vim'
 " session management
 Plugin 'tpope/vim-obsession'
 " git integration
