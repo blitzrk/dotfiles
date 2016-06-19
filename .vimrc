@@ -18,7 +18,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'helino/vim-json'
 Plugin 'mxw/vim-jsx'
 Plugin 'udalov/kotlin-vim'
-Plugin 'lambdatoast/elm.vim'
+Plugin 'ElmCast/elm-vim'
 Plugin 'mjakl/vim-asciidoc'
 Plugin 'PProvost/vim-ps1'
 " shortcuts
@@ -106,7 +106,8 @@ set tm=500
 map <space> /
 
 " Elm config
-au FileType elm setlocal ts=2 sts=2 sw=2 expandtab
+"au FileType elm setlocal ts=2 sts=2 sw=2 expandtab
+let g:elm_format_autosave = 1
 
 " Javascript config
 au FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
