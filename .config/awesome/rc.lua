@@ -48,6 +48,11 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
+-- Send keystroke to window
+function send_keys(keys)
+	awful.util.spawn_with_shell(string.format("xdotool key --clearmodifiers --window $(xdotool getwindowfocus) %s", keys))
+end
+
 --run_once("urxvtd")
 run_once("unclutter -root")
 -- }}}
@@ -115,7 +120,7 @@ clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 --mytextclock = awful.widget.textclock(" %a %d %b  %H:%M")
 
 mytextclock = lain.widgets.abase({
-    timeout  = 60,
+    timeout  = 6,
     cmd      = "date +'%a %d %b %I:%M %P'",
     settings = function()
         widget:set_text(" " .. output)
@@ -416,13 +421,45 @@ globalkeys = awful.util.table.join(
 	end),
 	awful.key({ modkey }, "F9", function()
 		awful.util.spawn("pactl set-sink-mute 1 0")
-		awful.util.spawn("pactl set-sink-volume 1 -2%")
+        os.execute(string.format("amixer set %s 2%%-", volumewidget.channel))
         volumewidget.update()
 	end),
 	awful.key({ modkey }, "F10", function()
 		awful.util.spawn("pactl set-sink-mute 1 0")
-		awful.util.spawn("pactl set-sink-volume 1 +2%")
+        os.execute(string.format("amixer set %s 2%%+", volumewidget.channel))
         volumewidget.update()
+	end),
+	awful.key({ altkey }, "BackSpace", function()
+		send_keys("Delete")
+	end),
+	awful.key({ "Control" }, "Down", function()
+		send_keys("Page_Down")
+	end),
+	awful.key({ "Control" }, "Up", function()
+		send_keys("Page_Up")
+	end),
+	awful.key({ "Control", altkey }, "Down", function()
+		send_keys("End")
+	end),
+	awful.key({ "Control", altkey }, "Up", function()
+		send_keys("Home")
+	end),
+
+	-- Media keys
+	awful.key({ modkey }, "F1", function()
+		send_keys("XF86Back")
+	end),
+	awful.key({ modkey }, "F2", function()
+		send_keys("XF86Forward")
+	end),
+	awful.key({ modkey }, "F3", function()
+		send_keys("XF86Reload")
+	end),
+	awful.key({ modkey }, "F4", function()
+		send_keys("F11")
+	end),
+	awful.key({ modkey }, "F5", function()
+		send_keys("F12")
 	end),
 
 
@@ -520,6 +557,7 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
 
     -- ALSA volume control
+	--[[
     awful.key({ altkey }, "Up",
         function ()
             os.execute(string.format("amixer set %s 1%%+", volumewidget.channel))
@@ -540,28 +578,7 @@ globalkeys = awful.util.table.join(
             os.execute(string.format("amixer set %s 100%%", volumewidget.channel))
             volumewidget.update()
         end),
-
-    -- MPD control
-    awful.key({ altkey, "Control" }, "Up",
-        function ()
-            awful.util.spawn_with_shell("mpc toggle || ncmpc toggle || pms toggle")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Down",
-        function ()
-            awful.util.spawn_with_shell("mpc stop || ncmpc stop || pms stop")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            awful.util.spawn_with_shell("mpc prev || ncmpc prev || pms prev")
-            mpdwidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            awful.util.spawn_with_shell("mpc next || ncmpc next || pms next")
-            mpdwidget.update()
-        end),
+	--]]
 
     -- Copy to clipboard
     awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
