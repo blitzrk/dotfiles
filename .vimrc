@@ -18,20 +18,22 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'helino/vim-json'
 Plugin 'mxw/vim-jsx'
 Plugin 'udalov/kotlin-vim'
-Plugin 'lambdatoast/elm.vim'
+Plugin 'ElmCast/elm-vim'
+Plugin 'mjakl/vim-asciidoc'
+Plugin 'PProvost/vim-ps1'
 " shortcuts
 Plugin 'tpope/vim-surround'
 " syntax
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
+Plugin 'maksimr/vim-jsbeautify'
 " navigation
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 " look and feel
 Plugin 'bling/vim-airline'
-Plugin 'endel/vim-github-colorscheme'
 Plugin 'artnez/vim-wipeout'
 Plugin 'fatih/molokai'
 Plugin 'xero/sourcerer.vim'
@@ -70,6 +72,7 @@ set undolevels=1000
 " Indentation
 set tabstop=4
 set shiftwidth=4
+set textwidth=79
 set smarttab
 set noexpandtab
 
@@ -103,7 +106,8 @@ set tm=500
 map <space> /
 
 " Elm config
-au FileType elm setlocal ts=2 sts=2 sw=2 expandtab
+"au FileType elm setlocal ts=2 sts=2 sw=2 expandtab
+let g:elm_format_autosave = 1
 
 " Javascript config
 au FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
