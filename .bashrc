@@ -17,8 +17,7 @@ alias ssh='ssh -o ServerAliveInterval=100'
 alias shutdown='sudo systemctl poweroff'
 alias reboot='sudo systemctl reboot'
 alias wifi='nmcli r wifi'
-alias freedom="qalc 'days(now, 2016-07-15)' | awk '{print \$NF, \"days\"}'"
-alias breedom="qalc 'days(now, 2016-07-07)' | awk '{print \$NF, \"days\"}'"
+alias wifi-connect="nmtui-connect"
 
 # SSH Agent
 eval $(keychain --eval --quiet id_rsa)
