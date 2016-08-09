@@ -55,6 +55,8 @@ end
 
 --run_once("urxvtd")
 run_once("unclutter -root")
+run_once("dropbox")
+run_once("epmd -daemon")
 -- }}}
 
 -- {{{ Variable definitions
