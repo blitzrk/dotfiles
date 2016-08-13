@@ -53,6 +53,16 @@ function send_keys(keys)
 	awful.util.spawn_with_shell(string.format("xdotool key --clearmodifiers --window $(xdotool getwindowfocus) %s", keys))
 end
 
+-- Toggle touchscreen and notify
+awful.util.spawn_with_shell("xinput | grep -qi touchscreen && xinput disable 'Atmel maXTouch Touchscreen'")
+function toggle_touchscreen()
+	local cmd = "xinput list-props \'Atmel maXTouch Touchscreen\' | grep \"Device Enabled\" | sed \'s/.*\\([0-9]\\)$/\\1/\'"
+	local state = awful.util.pread(cmd)
+	local action = state == "1\n" and 'disable' or 'enable'
+	awful.util.spawn('xinput ' .. action .. ' "Atmel maXTouch Touchscreen"')
+	naughty.notify({ text = "Touchscreen " .. action .. "d" })
+end
+
 --run_once("urxvtd")
 run_once("unclutter -root")
 run_once("dropbox")
@@ -402,6 +412,9 @@ globalkeys = awful.util.table.join(
     	for s = 1, screen.count() do
         	gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     	end
+	end),
+	awful.key({ modkey, "Shift" }, "F5", function()
+		toggle_touchscreen()
 	end),
 
 	-- Chromebook
