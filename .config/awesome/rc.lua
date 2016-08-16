@@ -197,8 +197,8 @@ memwidget = lain.widgets.mem({
 cpuicon = wibox.widget.imagebox(beautiful.widget_cpu)
 cpuwidget = lain.widgets.cpu({
     settings = function()
-		usage = string.format(" %3d%% ", tonumber(cpu_now.usage))
-        widget:set_text(usage)
+		usage = string.format("%3d%% ", tonumber(cpu_now.usage))
+        widget:set_markup(markup.monospace(usage))
     end
 })
 
@@ -261,11 +261,11 @@ neticon = wibox.widget.imagebox(beautiful.widget_net)
 neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(iptraf) end)))
 netwidget = lain.widgets.net({
     settings = function()
-		recv = string.format("%10.1f", net_now.received)
-		sent = string.format("%10.1f", net_now.sent)
-        widget:set_markup(markup("#7AC82E", recv)
+		recv = string.format("%7.1f", net_now.received)
+		sent = string.format("%7.1f", net_now.sent)
+        widget:set_markup(markup("#7AC82E", markup.monospace(recv))
                           .. " " ..
-                          markup("#46A8C3", sent))
+                          markup("#46A8C3", markup.monospace(sent)))
     end
 })
 
