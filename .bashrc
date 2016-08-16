@@ -16,7 +16,7 @@ alias ls='ls --color=auto'
 alias ssh='ssh -o ServerAliveInterval=100'
 alias shutdown='sudo systemctl poweroff'
 alias reboot='sudo systemctl reboot'
-alias wifi='nmcli r wifi'
+alias wifi-reconnect='sudo systemctl restart NetworkManager'
 alias wifi-connect="nmtui-connect"
 
 # SSH Agent
