@@ -65,6 +65,7 @@ end
 
 --run_once("urxvtd")
 run_once("unclutter -root")
+run_once("start-pulseaudio-x11")
 run_once("dropbox")
 run_once("epmd -daemon")
 -- }}}
@@ -207,7 +208,8 @@ local function toFahrenheit(c) return c * 9 / 5 + 32 end
 tempicon = wibox.widget.imagebox(beautiful.widget_temp)
 tempwidget = lain.widgets.temp({
     settings = function()
-        widget:set_text(" " .. toFahrenheit(coretemp_now) .. "°F ")
+		temp = string.format(" %6.2f°F ", toFahrenheit(coretemp_now))
+        widget:set_markup(markup.monospace(temp))
     end
 })
 
@@ -261,8 +263,8 @@ neticon = wibox.widget.imagebox(beautiful.widget_net)
 neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(iptraf) end)))
 netwidget = lain.widgets.net({
     settings = function()
-		recv = string.format("%7.1f", net_now.received)
-		sent = string.format("%7.1f", net_now.sent)
+		recv = string.format("%6.1f", net_now.received)
+		sent = string.format("%6.1f", net_now.sent)
         widget:set_markup(markup("#7AC82E", markup.monospace(recv))
                           .. " " ..
                           markup("#46A8C3", markup.monospace(sent)))
@@ -431,16 +433,16 @@ globalkeys = awful.util.table.join(
 		awful.util.spawn("sudo keyboard-brightness -i")
 	end),
 	awful.key({ modkey }, "F8", function()
-		awful.util.spawn("pactl set-sink-mute 1 toggle")
+        os.execute(string.format("amixer set %s toggle", volumewidget.channel))
         volumewidget.update()
 	end),
 	awful.key({ modkey }, "F9", function()
-		awful.util.spawn("pactl set-sink-mute 1 0")
+        os.execute(string.format("amixer set %s unmute", volumewidget.channel))
         os.execute(string.format("amixer set %s 2%%-", volumewidget.channel))
         volumewidget.update()
 	end),
 	awful.key({ modkey }, "F10", function()
-		awful.util.spawn("pactl set-sink-mute 1 0")
+        os.execute(string.format("amixer set %s unmute", volumewidget.channel))
         os.execute(string.format("amixer set %s 2%%+", volumewidget.channel))
         volumewidget.update()
 	end),
