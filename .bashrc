@@ -19,6 +19,17 @@ alias reboot='sudo systemctl reboot'
 alias wifi-reconnect='sudo systemctl restart NetworkManager'
 alias wifi-connect="nmtui-connect"
 
+# Custom functions
+function toggle-palm-check() {
+	if [[ "$(xinput list-props 9 | grep -oP '(?<=\(294\):)(.*)' | xargs echo)" == "0" ]]; then
+		xinput set-prop 9 294 1
+		echo "disabled pointer while typing"
+	else
+		xinput set-prop 9 294 0
+		echo "enabled pointer while typing"
+	fi
+}
+
 # SSH Agent
 eval $(keychain --eval --quiet id_rsa)
 
