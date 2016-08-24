@@ -20,14 +20,33 @@ alias wifi-reconnect='sudo systemctl restart NetworkManager'
 alias wifi-connect="nmtui-connect"
 
 # Custom functions
-function toggle-palm-check() {
-	if [[ "$(xinput list-props 9 | grep -oP '(?<=\(294\):)(.*)' | xargs echo)" == "0" ]]; then
-		xinput set-prop 9 294 1
-		echo "disabled pointer while typing"
-	else
-		xinput set-prop 9 294 0
-		echo "enabled pointer while typing"
-	fi
+function palm-check() {
+	ARG=$1
+	STATE=$(xinput list-props 9 | grep -oP '(?<=\(294\):)(.*)' | xargs echo)
+
+	case "$ARG" in
+		on)
+			xinput set-prop 9 294 1
+			echo "disabled pointer while typing"
+			;;
+		off)
+			xinput set-prop 9 294 0
+			echo "enabled pointer while typing"
+			;;
+		toggle)
+			if [[ "$STATE" == "0" ]]; then
+				xinput set-prop 9 294 1
+				echo "disabled pointer while typing"
+			else
+				xinput set-prop 9 294 0
+				echo "enabled pointer while typing"
+			fi
+			;;
+		*)
+			echo "usage: palm-check [on|off|toggle]"
+			exit 1
+			;;
+	esac
 }
 
 # SSH Agent
