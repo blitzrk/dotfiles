@@ -1,0 +1,24 @@
+xkb_symbols "chromebook" {
+    key <UP> {
+        type="ARROW",
+        repeat=yes,
+        [ Up, Up, Prior, Home ],
+        actions[Group1] = [
+            NoAction(),
+            NoAction(),
+            RedirectKey(key=<PGUP>, clearmods=Alt),
+            RedirectKey(key=<HOME>, clearmods=Control+Alt)
+        ]
+    };
+    key <DOWN> {
+        type="ARROW",
+        repeat=yes,
+        [ Down, Down, Next, End ],
+        actions[Group1] = [
+            NoAction(),
+            NoAction(),
+            RedirectKey(key=<PGDN>, clearmods=Alt),
+            RedirectKey(key=<END>, clearmods=Control+Alt)
+        ]
+    };
+};

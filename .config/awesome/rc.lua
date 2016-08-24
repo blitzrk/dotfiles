@@ -57,6 +57,7 @@ end
 
 -- Toggle touchscreen and notify
 awful.util.spawn_with_shell("xinput | grep -qi touchscreen && xinput disable 'Atmel maXTouch Touchscreen'")
+awful.util.spawn_with_shell("xkbcomp -I$HOME/.xkb -R$HOME/.xkb keymap/chromebook $DISPLAY")
 function toggle_touchscreen()
 	local cmd = "xinput list-props \'Atmel maXTouch Touchscreen\' | grep \"Device Enabled\" | sed \'s/.*\\([0-9]\\)$/\\1/\'"
 	local state = awful.util.pread(cmd)
@@ -427,30 +428,6 @@ globalkeys = awful.util.table.join(
 	awful.key({ "Control" }, "Up", send_keys("Page_Up")),
 	awful.key({ "Control", altkey }, "Down", send_keys("End")),
 	awful.key({ "Control", altkey }, "Up", send_keys("Home")),
-	--awful.key({ "Control", altkey, "Shift" }, "Down", send_keys("Shift+End")),
-	--awful.key({ "Control", altkey, "Shift" }, "Up", send_keys("Shift+Home")),
-	awful.key({ "Control", altkey, "Shift" }, "Down", nil, function()
-		root.fake_input("key_release", "Alt_L")
-		root.fake_input("key_release", "Alt_R")
-		root.fake_input("key_release", "Control_L")
-		root.fake_input("key_release", "Control_R")
-		root.fake_input("key_release", "End")
-		root.fake_input("key_press", "End")
-		root.fake_input("key_release", "End")
-		root.fake_input("key_press", "Control_L")
-		root.fake_input("key_press", "Alt_L")
-	end),
-	awful.key({ "Control", altkey, "Shift" }, "Up", nil, function()
-		root.fake_input("key_release", "Alt_L")
-		root.fake_input("key_release", "Alt_R")
-		root.fake_input("key_release", "Control_L")
-		root.fake_input("key_release", "Control_R")
-		root.fake_input("key_release", "Home")
-		root.fake_input("key_press", "Home")
-		root.fake_input("key_release", "End")
-		root.fake_input("key_press", "Control_L")
-		root.fake_input("key_press", "Alt_L")
-	end),
 
 	-- Media keys
 	awful.key({ modkey }, "F1", send_keys("XF86Back")),
