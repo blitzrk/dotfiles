@@ -50,7 +50,9 @@ end
 
 -- Send keystroke to window
 function send_keys(keys)
-	awful.util.spawn_with_shell(string.format("xdotool key --clearmodifiers --window $(xdotool getwindowfocus) %s", keys))
+	return function()
+		os.execute(string.format("xdotool getwindowfocus key --clearmodifiers %s", keys))
+	end
 end
 
 -- Toggle touchscreen and notify
@@ -85,7 +87,7 @@ editor_cmd = terminal .. " -e " .. editor
 -- user defined
 browser    = "google-chrome-stable"
 fileman    = "thunar"
-gui_editor = "gvim"
+gui_editor = "leafpad"
 graphics   = "gimp"
 mail       = terminal .. " -e mutt "
 iptraf     = terminal .. " -g 180x54-20+34 -e sudo iptraf-ng -i all "
@@ -420,18 +422,46 @@ globalkeys = awful.util.table.join(
 	end),
 
 	-- Chromebook
-	awful.key({ modkey }, "F6", function()
-		awful.util.spawn("sudo brightness -d")
+	awful.key({ altkey }, "BackSpace", send_keys("Delete")),
+	awful.key({ "Control" }, "Down", send_keys("Page_Down")),
+	awful.key({ "Control" }, "Up", send_keys("Page_Up")),
+	awful.key({ "Control", altkey }, "Down", send_keys("End")),
+	awful.key({ "Control", altkey }, "Up", send_keys("Home")),
+	--awful.key({ "Control", altkey, "Shift" }, "Down", send_keys("Shift+End")),
+	--awful.key({ "Control", altkey, "Shift" }, "Up", send_keys("Shift+Home")),
+	awful.key({ "Control", altkey, "Shift" }, "Down", nil, function()
+		root.fake_input("key_release", "Alt_L")
+		root.fake_input("key_release", "Alt_R")
+		root.fake_input("key_release", "Control_L")
+		root.fake_input("key_release", "Control_R")
+		root.fake_input("key_release", "End")
+		root.fake_input("key_press", "End")
+		root.fake_input("key_release", "End")
+		root.fake_input("key_press", "Control_L")
+		root.fake_input("key_press", "Alt_L")
 	end),
-	awful.key({ modkey }, "F7", function()
-		awful.util.spawn("sudo brightness -i")
+	awful.key({ "Control", altkey, "Shift" }, "Up", nil, function()
+		root.fake_input("key_release", "Alt_L")
+		root.fake_input("key_release", "Alt_R")
+		root.fake_input("key_release", "Control_L")
+		root.fake_input("key_release", "Control_R")
+		root.fake_input("key_release", "Home")
+		root.fake_input("key_press", "Home")
+		root.fake_input("key_release", "End")
+		root.fake_input("key_press", "Control_L")
+		root.fake_input("key_press", "Alt_L")
 	end),
-	awful.key({ modkey, "Shift" }, "F6", function()
-		awful.util.spawn("sudo keyboard-brightness -d")
-	end),
-	awful.key({ modkey, "Shift" }, "F7", function()
-		awful.util.spawn("sudo keyboard-brightness -i")
-	end),
+
+	-- Media keys
+	awful.key({ modkey }, "F1", send_keys("XF86Back")),
+	awful.key({ modkey }, "F2", send_keys("XF86Forward")),
+	awful.key({ modkey }, "F3", send_keys("XF86Reload")),
+	awful.key({ modkey }, "F4", send_keys("F11")),
+	awful.key({ modkey }, "F5", send_keys("F12")),
+	awful.key({ modkey }, "F6", function() os.execute("sudo brightness -d") end),
+	awful.key({ modkey }, "F7", function() os.execute("sudo brightness -i") end),
+	awful.key({ modkey, "Shift" }, "F6", function() os.execute("sudo keyboard-brightness -d") end),
+	awful.key({ modkey, "Shift" }, "F7", function() os.execute("sudo keyboard-brightness -i") end),
 	awful.key({ modkey }, "F8", function()
         os.execute(string.format("amixer set %s toggle", volumewidget.channel))
         volumewidget.update()
@@ -446,39 +476,6 @@ globalkeys = awful.util.table.join(
         os.execute(string.format("amixer set %s 2%%+", volumewidget.channel))
         volumewidget.update()
 	end),
-	awful.key({ altkey }, "BackSpace", function()
-		send_keys("Delete")
-	end),
-	awful.key({ "Control" }, "Down", function()
-		send_keys("Page_Down")
-	end),
-	awful.key({ "Control" }, "Up", function()
-		send_keys("Page_Up")
-	end),
-	awful.key({ "Control", altkey }, "Down", function()
-		send_keys("End")
-	end),
-	awful.key({ "Control", altkey }, "Up", function()
-		send_keys("Home")
-	end),
-
-	-- Media keys
-	awful.key({ modkey }, "F1", function()
-		send_keys("XF86Back")
-	end),
-	awful.key({ modkey }, "F2", function()
-		send_keys("XF86Forward")
-	end),
-	awful.key({ modkey }, "F3", function()
-		send_keys("XF86Reload")
-	end),
-	awful.key({ modkey }, "F4", function()
-		send_keys("F11")
-	end),
-	awful.key({ modkey }, "F5", function()
-		send_keys("F12")
-	end),
-
 
     -- Take a screenshot
     -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
