@@ -59,11 +59,13 @@ end
 awful.util.spawn_with_shell("xinput | grep -qi touchscreen && xinput disable 'Atmel maXTouch Touchscreen'")
 awful.util.spawn_with_shell("xkbcomp -I$HOME/.xkb -R$HOME/.xkb keymap/chromebook $DISPLAY")
 function toggle_touchscreen()
-	local cmd = "xinput list-props \'Atmel maXTouch Touchscreen\' | grep \"Device Enabled\" | sed \'s/.*\\([0-9]\\)$/\\1/\'"
-	local state = awful.util.pread(cmd)
-	local action = state == "1\n" and 'disable' or 'enable'
-	awful.util.spawn('xinput ' .. action .. ' "Atmel maXTouch Touchscreen"')
-	naughty.notify({ text = "Touchscreen " .. action .. "d" })
+	return function()
+		local cmd = "xinput list-props \'Atmel maXTouch Touchscreen\' | grep \"Device Enabled\" | sed \'s/.*\\([0-9]\\)$/\\1/\'"
+		local state = awful.util.pread(cmd)
+		local action = state == "1\n" and 'disable' or 'enable'
+		awful.util.spawn('xinput ' .. action .. ' "Atmel maXTouch Touchscreen"')
+		naughty.notify({ text = "Touchscreen " .. action .. "d" })
+	end
 end
 
 --run_once("urxvtd")
@@ -418,8 +420,10 @@ globalkeys = awful.util.table.join(
         	gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     	end
 	end),
-	awful.key({ modkey, "Shift" }, "F5", function()
-		toggle_touchscreen()
+	awful.key({ modkey, "Shift" }, "F5", toggle_touchscreen()),
+	awful.key({ modkey, "Shift" }, "F4", function()
+		local text = awful.util.pread("palm-check toggle")
+		naughty.notify({text = text:gsub("%s*$", "")})
 	end),
 
 	-- Chromebook

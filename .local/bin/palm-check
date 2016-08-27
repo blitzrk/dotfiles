@@ -1,0 +1,40 @@
+#!/bin/bash
+set -euo pipefail
+
+function main() {
+	ARG=$1
+	STATE=$(xinput list-props 9 | grep -oP '(?<=\(294\):)(.*)' | xargs echo)
+
+	case "$ARG" in
+		on)
+			xinput set-prop 9 294 1
+			echo "disabled pointer while typing"
+			;;
+		off)
+			xinput set-prop 9 294 0
+			echo "enabled pointer while typing"
+			;;
+		toggle)
+			if [[ "$STATE" == "0" ]]; then
+				xinput set-prop 9 294 1
+				echo "disabled pointer while typing"
+			else
+				xinput set-prop 9 294 0
+				echo "enabled pointer while typing"
+			fi
+			;;
+		status)
+			if [[ "$STATE" == "0" ]]; then
+				echo "pointer enabled while typing"
+			else
+				echo "pointer disabled while typing"
+			fi
+			;;
+		*)
+			echo "usage: palm-check [on|off|toggle|status]"
+			exit 1
+			;;
+	esac
+}
+
+main "$@"
