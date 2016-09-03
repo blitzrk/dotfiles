@@ -21,4 +21,12 @@ xkb_symbols "chromebook" {
             RedirectKey(key=<END>, clearmods=Control+Alt)
         ]
     };
+    key <BKSP> {
+        type= "PC_ALT_LEVEL2",
+        [ BackSpace, Delete ],
+        actions[Group1] = [
+            NoAction(),
+            RedirectKey(key=<DELE>, clearmods=Alt)
+        ]
+    };
 };

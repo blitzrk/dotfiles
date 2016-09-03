@@ -426,13 +426,6 @@ globalkeys = awful.util.table.join(
 		naughty.notify({text = text:gsub("%s*$", "")})
 	end),
 
-	-- Chromebook
-	awful.key({ altkey }, "BackSpace", send_keys("Delete")),
-	awful.key({ "Control" }, "Down", send_keys("Page_Down")),
-	awful.key({ "Control" }, "Up", send_keys("Page_Up")),
-	awful.key({ "Control", altkey }, "Down", send_keys("End")),
-	awful.key({ "Control", altkey }, "Up", send_keys("Home")),
-
 	-- Media keys
 	awful.key({ modkey }, "F1", send_keys("XF86Back")),
 	awful.key({ modkey }, "F2", send_keys("XF86Forward")),
