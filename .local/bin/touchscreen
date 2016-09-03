@@ -1,0 +1,68 @@
+#!/bin/bash
+set -euo pipefail
+
+device="Atmel maXTouch Touchscreen"
+
+function usage() {
+	echo "usage: touchscreen [status|on|off|toggle|print]" >&2
+	exit 1
+}
+
+function state() {
+	declare -i status
+
+	status=$(xinput list-props "$device" \
+	| grep "Device Enabled" \
+	| sed 's/.*\([0-9]\)$/\1/')
+
+	echo ${status:-2}
+}
+
+function main() {
+	if [ $(state) -eq 2 ]; then
+		echo "Touchscreen not found" >&2
+		exit 1
+	fi
+
+	cmd=${1:-status}
+	case "$cmd" in
+		-h|--help|help)
+			usage
+			;;
+		print)
+			case `state` in
+				0)
+					echo "disabled"
+					;;
+				1)
+					echo "enabled"
+					;;
+			esac
+			;;
+		status)
+			return $(state)
+			;;
+		on)
+			[ $(state) -eq 0 ] && xinput enable "$device"
+			;;
+		off)
+			[ $(state) -eq 1 ] && xinput disable "$device"
+			;;
+		toggle)
+			case `state` in
+				0)
+					xinput enable "$device"
+					;;
+				1)
+					xinput disable "$device"
+					;;
+			esac
+			;;
+		*)
+			echo "Unknown command '$1'" >&2
+			usage
+			;;
+	esac
+}
+
+main "$@"

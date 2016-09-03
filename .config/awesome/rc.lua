@@ -56,15 +56,11 @@ function send_keys(keys)
 end
 
 -- Toggle touchscreen and notify
-awful.util.spawn_with_shell("xinput | grep -qi touchscreen && xinput disable 'Atmel maXTouch Touchscreen'")
-awful.util.spawn_with_shell("xkbcomp -I$HOME/.xkb -R$HOME/.xkb keymap/chromebook $DISPLAY")
+awful.util.spawn("touchscreen off")
 function toggle_touchscreen()
 	return function()
-		local cmd = "xinput list-props \'Atmel maXTouch Touchscreen\' | grep \"Device Enabled\" | sed \'s/.*\\([0-9]\\)$/\\1/\'"
-		local state = awful.util.pread(cmd)
-		local action = state == "1\n" and 'disable' or 'enable'
-		awful.util.spawn('xinput ' .. action .. ' "Atmel maXTouch Touchscreen"')
-		naughty.notify({ text = "Touchscreen " .. action .. "d" })
+		local state = awful.util.pread('touchscreen toggle && touchscreen print'):gsub("%s*$", "")
+		naughty.notify({ text = "Touchscreen " .. state })
 	end
 end
 
@@ -73,6 +69,10 @@ run_once("unclutter -root")
 run_once("start-pulseaudio-x11")
 run_once("dropbox")
 run_once("epmd -daemon")
+
+-- Load custom keymaps
+awful.util.spawn_with_shell("xkbcomp -I$HOME/.xkb -R$HOME/.xkb keymap/chromebook $DISPLAY")
+
 -- }}}
 
 -- {{{ Variable definitions
@@ -108,7 +108,7 @@ local layouts = {
 -- {{{ Tags
 tags = {
    names = { "1", "2", "3", "4", "5"},
-   layout = { layouts[1], layouts[2], layouts[3], layouts[1], layouts[4] }
+   layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2] }
 }
 
 for s = 1, screen.count() do
