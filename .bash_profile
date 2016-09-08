@@ -14,7 +14,4 @@ export NVM_DIR="/home/ben/.nvm"
 export GOPATH=~/.go
 export PATH=$PATH:~/.go/bin
 
-# Ruby
-export PATH=$PATH:~/.gem/ruby/2.3.0/bin
-
 [[ -f ~/.bashrc ]] && . ~/.bashrc
