@@ -672,6 +672,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
 	                   size_hints_honor = false } },
+--[[
     { rule = { class = "URxvt" },
           properties = { opacity = 0.99 } },
 
@@ -689,6 +690,7 @@ awful.rules.rules = {
 
 	  { rule = { class = "Gimp" },
      	    properties = { tag = tags[1][4] } },
+--]]
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized_horizontal = true,
