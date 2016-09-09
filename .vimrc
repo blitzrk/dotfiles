@@ -104,6 +104,7 @@ set tm=500
 
 " Custom mappings
 map <space> /
+cmap w!! w !sudo tee > /dev/null %
 
 " Elm config
 "au FileType elm setlocal ts=2 sts=2 sw=2 expandtab
