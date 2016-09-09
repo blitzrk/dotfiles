@@ -64,11 +64,11 @@ function toggle_touchscreen()
 	end
 end
 
---run_once("urxvtd")
 run_once("unclutter -root")
 run_once("start-pulseaudio-x11")
 run_once("dropbox")
 run_once("epmd -daemon")
+run_once("caffeine")
 
 -- Load custom keymaps
 awful.util.spawn_with_shell("xkbcomp -I$HOME/.xkb -R$HOME/.xkb keymap/chromebook $DISPLAY")
