@@ -19,6 +19,8 @@ alias shutdown='sudo systemctl poweroff'
 alias reboot='sudo systemctl reboot'
 alias wifi-connect="nmtui-connect"
 alias ri="ri -f ansi"
+alias rx="rbenv exec"
+alias rr="rbenv rehash"
 
 # SSH Agent
 eval $(keychain --eval --quiet id_rsa)
