@@ -22,6 +22,15 @@ alias ri="ri -f ansi"
 alias rx="rbenv exec"
 alias rr="rbenv rehash"
 
+# Functions
+function git() {
+	local opt=""
+	if [[ `pwd`/ =~ /work/ ]]; then
+	 opt='-c user.email=bkrieger@smartperimeter.io'
+	fi
+	/usr/bin/git $opt "$@"
+}
+
 # SSH Agent
 eval $(keychain --eval --quiet id_rsa)
 
