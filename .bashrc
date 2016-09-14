@@ -45,6 +45,8 @@ alias wifi-connect="nmtui-connect"
 alias ri="ri -f ansi"
 alias rx="rbenv exec"
 alias rr="rbenv rehash"
+alias bx="bundle exec"
+alias gr="grep --exclude-dir vendor --exclude-dir .git -nr"
 
 # SSH Agent
 eval $(keychain --eval --quiet id_rsa)
